@@ -123,14 +123,14 @@ app.get('/twilio/getinteriorpic', function(req,res){
      });
 });
 
-app.get('/twilio/rollWindow', function(req,res){
-  client.messages.create({
-      body: 'Please slow down. You may be tailgating the car infront of you.',
-      to: '+16616755558',  // Text this number
-      from: '+16614413621' // From a valid Twilio number
-  }).then((message) => console.log(message.sid)).done();
- console.log("sending message");
-});
+//app.get('/twilio/rollWindow', function(req,res){
+//  client.messages.create({
+//      body: 'Please slow down. You may be tailgating the car infront of you.',
+//      to: '+16616755558',  // Text this number
+  //    from: '+16614413621' // From a valid Twilio number
+  //}).then((message) => console.log(message.sid)).done();
+ //console.log("sending message");
+//});
 
 http.listen(80, function() {
   console.log("starting server on port 80...");
