@@ -3,7 +3,7 @@
 var express = require('express'); //import express constructor
 var app = express(); // custom http framework
 var http = require('http').Server(app); //tell noejs to use the express framework instead of default framework
-
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 
 var passport = require('passport');
@@ -19,11 +19,6 @@ var authToken = 'c950feb274876de4717a627d7ab531b2';
 var twilio = require('twilio');
 var client = new twilio(accountSid, authToken);
 
-client.messages.create({
-    body: 'foo',
-    to: '+16616755558',  // Text this number
-    from: '+16614413621' // From a valid Twilio number
-}).then((message) => console.log(message.sid));
 
 
 passport.use(new GoogleStrategy({
@@ -64,15 +59,33 @@ app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/
   console.log(JSON.stringify(request.user));
 })
 
-app.get('/twilio/send', function(req,res){
+app.get('/twilio/sms', function(req,res){
+  client.messages.create({
+      body: 'High Beam',
+      to: '+16616755558',  // Text this number
+      from: '+16614413621' // From a valid Twilio number
+  }).then((message) => console.log(message.sid)).done();
  console.log("sending message");
 });
 
+app.get('/twilio/send', function(req,res){
+  client.messages.create({
+      body: 'Slow Down. You\'re Tailgating',
+      to: '+16616755558',  // Text this number
+      from: '+16614413621' // From a valid Twilio number
+  }).then((message) => console.log(message.sid)).done();
+ console.log("sending message");
+});
 
+app.get('/twilio/takepic', function(req,res){
+  client.messages.create({
+      body: 'GETTFOUT',
+      to: '+16616755558',  // Text this number
+      from: '+16614413621' // From a valid Twilio number
+  }).then((message) => console.log(message.sid)).done();
+ console.log("sending message");
+});
 
 http.listen(80, function() {
   console.log("starting server on port 80...");
 });
-
-
- 
