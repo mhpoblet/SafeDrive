@@ -9,10 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "nodemon": "^1.18.7",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
+    "request": "^2.88.0",
+    "smartcar": "^4.2.1",
     "twilio": "^3.27.1"
   }
 }

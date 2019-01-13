@@ -2,6 +2,12 @@
 
 var express = require('express'); //import express constructor
 var app = express(); // custom http framework
+var request = require("request");
+app.use(express.static('public'));
+
+
+const smartcar = require('smartcar');
+
 var http = require('http').Server(app); //tell noejs to use the express framework instead of default framework
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
@@ -29,6 +35,14 @@ passport.use(new GoogleStrategy({
   return cb(null, profile);
 }));
 
+//const ccar = new smartcar.AuthClient({
+//  clientId: 'SMARTCAR_CLIENT_ID',
+//  clientSecret: 'SMARTCAR_CLIENT_SECRET',
+//  redirectUri: 'YOUR_CALLBACK_URI',
+//  scope: ['read_vehicle_info'],
+//  testMode: true, // launch the Smartcar auth flow in test mode
+//});
+
 passport.serializeUser(function(user,done) {
   done(null,user);
 }); //cb calls that
@@ -50,7 +64,11 @@ app.get('/', function(request, response) {
 
 app.get('/google/login', passport.authenticate('google', {scope: ['profile']}));
 
+app.get('/test',function(req,res){
+  res.type("text/html"); //plain
 
+  res.send(testhtml);
+})
 app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/google/login'}), function(request, response) {
 
   response.type("text/html"); //plain
@@ -59,9 +77,11 @@ app.get('/google/callback', passport.authenticate('google', {failureRedirect: '/
   console.log(JSON.stringify(request.user));
 })
 
+
+
 app.get('/twilio/sms', function(req,res){
   client.messages.create({
-      body: 'High Beam',
+      body: 'Please turn off your high beams. You may be impairing the vision of other drivers.',
       to: '+16616755558',  // Text this number
       from: '+16614413621' // From a valid Twilio number
   }).then((message) => console.log(message.sid)).done();
@@ -70,7 +90,7 @@ app.get('/twilio/sms', function(req,res){
 
 app.get('/twilio/send', function(req,res){
   client.messages.create({
-      body: 'Slow Down. You\'re Tailgating',
+      body: 'Please slow down. You may be tailgating the car infront of you.',
       to: '+16616755558',  // Text this number
       from: '+16614413621' // From a valid Twilio number
   }).then((message) => console.log(message.sid)).done();
@@ -78,8 +98,34 @@ app.get('/twilio/send', function(req,res){
 });
 
 app.get('/twilio/takepic', function(req,res){
+       var options = { method: 'GET',
+        url: 'http://192.168.43.52:8002/getplateimage2',
+         headers:
+      { 'Postman-Token': '07029089-6032-466c-947c-4a6ad806a08a',
+        'cache-control': 'no-cache' } };
+
+      request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+       console.log(body);
+     });
+});
+
+app.get('/twilio/getinteriorpic', function(req,res){
+       var options = { method: 'GET',
+        url: 'http://192.168.43.52:8002/getinteriorimage2',
+         headers:
+      { 'Postman-Token': '07029089-6032-466c-947c-4a6ad806a08a',
+        'cache-control': 'no-cache' } };
+
+      request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+       console.log(body);
+     });
+});
+
+app.get('/twilio/rollWindow', function(req,res){
   client.messages.create({
-      body: 'GETTFOUT',
+      body: 'Please slow down. You may be tailgating the car infront of you.',
       to: '+16616755558',  // Text this number
       from: '+16614413621' // From a valid Twilio number
   }).then((message) => console.log(message.sid)).done();

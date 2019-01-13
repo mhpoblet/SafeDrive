@@ -1,0 +1,49 @@
+
+html,body {
+  background-color: transparent;
+  font-family: 'Hind Vadodara', sans-serif;
+}
+
+.jumbotron {
+
+  height: 100%;
+  background: rgb(22,22,22);
+background: radial-gradient(circle, rgba(22,22,22,1) 35%, rgba(57,56,56,1) 100%, rgba(0,0,0,1) 900%);
+}
+
+input {
+  border-radius: 5px;
+  border-color: transparent;
+  background: rgb(147,60,30);
+  letter-spacing: 1.5px;
+background: radial-gradient(circle, rgba(147,60,30,1) 35%, rgba(209,80,36,1) 100%, rgba(236,100,52,1) 900%);
+/*background: rgb(140,58,29);
+background: radial-gradient(circle, rgba(140,58,29,1) 35%, rgba(233,89,39,1) 100%, rgba(236,100,52,1) 900%);
+*/  padding-top: 1.3em;
+  padding-bottom: 1.3em;
+  padding-right: 5.3em;
+  padding-left: 5.3em;
+  text-transform: uppercase;
+  color:white;
+  cursor: pointer;
+}
+
+.center {
+    margin-top: 10%;
+}
+.space {
+  height: 3.8em;
+}
+
+h1 {
+  font-family: 'Hind Vadodara', sans-serif;
+  font-size: 70px!important;
+  text-align: center;
+  letter-spacing: 1.5px;
+  color: whitesmoke!important;
+}
+
+form {
+  text-align: center;
+  margin: 0 auto;
+}
